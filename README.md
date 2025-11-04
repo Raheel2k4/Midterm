@@ -4,13 +4,6 @@
 
 Originally developed as a **university project (CS375)**, it has evolved into a feature-rich, professional-grade application featuring a live menu, a persistent shopping cart, and a complete simulated checkout flow.
 
----
-
-## 📱 App Demo
-
-A full video recording demonstrating all app features is included in the root of this repository.
-
-**[🎥 Click to view App Demo (demo.mp4)]**
 
 ## ✨ Features
 
