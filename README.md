@@ -6,16 +6,6 @@ Originally created as a **university project (CS375)**, it has grown into a feat
 
 ---
 
-## 📱 App Demo
-
-A full demo video is included in the root directory of this repository.
-
-**[Click to View Demo (YOUR_VIDEO_FILE.mp4)]**
-
-> Replace `YOUR_VIDEO_FILE.mp4` with your actual demo file name (e.g., `demo.mp4`).
-
----
-
 ## ✨ Features
 
 ### 📩 Full-Stack Architecture
@@ -202,7 +192,7 @@ skybrews-coffee-app/
 ## 👨‍💻 Author
 
 **M. Raheel Nawaz**
-[GitHub Profile](#) | [Email](#)
+[GitHub Profile](https://github.com/Raheel2k4) | [Email](raheel.nawaz768@gmail.com)
 
 ---
 
