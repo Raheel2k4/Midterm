@@ -8,9 +8,7 @@ The app allows users to view the full coffee menu, fetched from a live MongoDB d
 
 A full video recording demonstrating the app's features and functionality is included in the root of this repository.
 
-**[Click to view App Demo (demo.mp4)]**
-
-*(Just replace `YOUR_VIDEO_FILE.mp4` with the actual name of your video file, like `demo.mp4`)*
+[![Skybrews App Demo](cover.png)](demo.mp4)
 
 <p align="center">
   </p>
