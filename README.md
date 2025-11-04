@@ -192,7 +192,7 @@ skybrews-coffee-app/
 ## 👨‍💻 Author
 
 **M. Raheel Nawaz**
-[GitHub Profile](https://github.com/Raheel2k4) | [Email](raheel.nawaz768@gmail.com)
+[https://github.com/Raheel2k4](#) | [raheel.nawaz768@gmail.com](#)
 
 ---
 
