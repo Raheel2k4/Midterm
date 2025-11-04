@@ -1,160 +1,182 @@
 # ☕ Skybrews Coffee App (Full-Stack)
 
-**Skybrews Coffee App** is a complete full-stack mobile application for a coffee shop, built with **React Native (Expo)** on the frontend and **Node.js/Express** on the backend.  
+**Skybrews Coffee App** is a complete full-stack mobile application for a coffee shop, built with **React Native (Expo)** on the frontend and **Node.js/Express** on the backend.
 
-Originally developed as a **university project (CS375)**, it has evolved into a feature-rich, professional-grade application featuring a live menu, a persistent shopping cart, and a complete simulated checkout flow.
+Originally created as a **university project (CS375)**, it has grown into a feature-rich, production-quality app featuring a live menu, persistent shopping cart, and full simulated checkout process.
 
+---
+
+## 📱 App Demo
+
+A full demo video is included in the root directory of this repository.
+
+**[Click to View Demo (YOUR_VIDEO_FILE.mp4)]**
+
+> Replace `YOUR_VIDEO_FILE.mp4` with your actual demo file name (e.g., `demo.mp4`).
+
+---
 
 ## ✨ Features
 
-### 🧩 Full-Stack Architecture
-A true client-server model built with:
-- **Frontend:** React Native (Expo)
-- **Backend:** Node.js, Express, MongoDB
+### 📩 Full-Stack Architecture
 
-### 🛒 Persistent Shopping Cart
-- Powered by **Zustand** for global state management  
-- Users can add, remove, and update item quantities  
-- Cart data persists across all screens  
+* React Native (Expo) frontend
+* Node.js / Express backend
+* MongoDB Atlas for database
+* Zustand for global state management
+
+### 💼 Persistent Shopping Cart
+
+* Add, remove, and update item quantities
+* Data persists across app sessions
 
 ### 💳 Complete Checkout Flow
-A smooth, multi-step checkout experience:
-1. **My Cart Screen** – Live-updating total price  
-2. **Checkout Screen** – Validated user form (Name, Address, Phone)  
-3. **Order Success Modal** – Clears cart and navigates home  
+
+1. **My Cart Screen** – Live-updating total
+2. **Checkout Screen** – Validated user form (Name, Address, Phone)
+3. **Order Success Modal** – Clears cart and returns home
 
 ### 🍰 Item Details Screen
-- Tap any menu item for detailed view  
-- Displays large image, full description, and price  
 
-### 🎁 “Surprise Me” Feature
-- Fetches a random in-stock item from the backend  
-- Displays it in an elegant, animated modal  
+* Tap any item for a detailed view with full description and image
+
+### 🎁 "Surprise Me" Feature
+
+* Fetches a random in-stock item from backend and displays in a custom modal
 
 ### ⚡ Dynamic UI & Feedback
-- “Add to Cart” button shows instant visual confirmation (“Added!”)  
-- “Cart” tab icon displays live badge with total items  
-- Quick access cart icon on “Menu” screen  
 
-### 🎨 Modern & Clean UI
-- Custom **light theme** with white and sky-blue color palette  
-- Hidden native headers for consistent, seamless design  
-- Custom titles for each screen  
+* "Add to Cart" button shows confirmation before navigating
+* Live cart badges on tabs and menu
+
+### 🎨 Modern & Clean Design
+
+* Custom light theme (white + sky blue)
+* Hidden native headers, replaced by custom titles
+* Consistent and modern look throughout
 
 ### 🌐 Automatic IP Configuration
-- Backend server IP is automatically detected from the Expo manifest  
-- No manual editing of `apiConfig.ts` required  
+
+* Backend IP auto-detected from Expo manifest
+* No need to manually change `apiConfig.ts`
 
 ---
 
 ## 🛠️ Tech Stack
 
-| Frontend (Client) | Backend (Server) |
-|--------------------|------------------|
-| React Native | Node.js |
-| Expo (SDK 49+) | Express |
-| TypeScript | Mongoose |
+| Frontend         | Backend       |
+| ---------------- | ------------- |
+| React Native     | Node.js       |
+| Expo (SDK 49+)   | Express       |
+| TypeScript       | Mongoose      |
 | Expo Router (v2) | MongoDB Atlas |
-| Zustand (State Mgmt) | cors |
-| expo-constants | dotenv |
+| Zustand          | cors          |
+| expo-constants   | dotenv        |
 
 ---
 
 ## 🚀 How to Run
 
-This project uses a **monorepo structure**, with separate `frontend` and `backend` folders.  
-You’ll need two terminals — one for each.
+The project is structured as a **monorepo** with separate `frontend` and `backend` folders. Use two terminals to run each part.
+
+### 🪙 Prerequisites
+
+* Node.js (v18+)
+* MongoDB Atlas account
+* Expo Go app on a phone (same Wi-Fi as PC)
 
 ---
 
-### 🧰 Prerequisites
+### 💻 Backend Setup
 
-- **Node.js** (v18.x or higher)  
-- **MongoDB Atlas** account (free tier works fine)  
-- **Expo Go App** (on your iOS/Android device — same Wi-Fi as your computer)
+1. Navigate to backend folder:
 
----
-
-## 🖥️ Backend Setup (Server)
-
-1. **Navigate to backend folder**
    ```bash
    cd backend
-Install dependencies
+   ```
 
-bash
-Copy code
-npm install
-Create Environment File
-Create a .env file inside the backend folder and add:
+2. Install dependencies:
 
-bash
-Copy code
-# Replace with your own MongoDB Atlas connection string
-# Make sure the database name is 'coffee_shop_db'
-MONGODB_URI="mongodb+srv://<user>:<password>@cluster.mongodb.net/coffee_shop_db?retryWrites=true&w=majority"
-Set MongoDB IP Whitelist
+   ```bash
+   npm install
+   ```
 
-Go to MongoDB Atlas Dashboard → Network Access → Add IP Address
+3. Create a `.env` file:
 
-Click "Allow My Current IP Address" and confirm
+   ```bash
+   MONGODB_URI="mongodb+srv://<user>:<password>@cluster.mongodb.net/coffee_shop_db?retryWrites=true&w=majority"
+   ```
 
-Populate Database
+4. Whitelist your IP on MongoDB Atlas:
 
-In Atlas, create a database named coffee_shop_db
+   * Go to **Network Access → Add IP Address**
+   * Click **Allow My Current IP Address**
 
-Create a collection named menu_items
+5. Populate the database:
 
-Click Insert Document → JSON Tab ({ }) and paste the provided menu JSON data
+   * Create database: `coffee_shop_db`
+   * Create collection: `menu_items`
+   * Insert provided JSON menu data
 
-Run the Server
+6. Run the server:
 
-bash
-Copy code
-node server.js
-✅ You should see:
+   ```bash
+   node server.js
+   ```
 
-vbnet
-Copy code
+Expected output:
+
+```
 Success: Connected to MongoDB
 Coffee shop server running on port 3000
-📱 Frontend Setup (App)
-Navigate to frontend folder
+```
 
-bash
-Copy code
-cd frontend
-Install dependencies
+---
 
-bash
-Copy code
-npm install
-Allow Expo Network Access (Windows Firewall)
+### 📲 Frontend Setup
 
-Open "Allow an app or feature through Windows Defender Firewall"
+1. Navigate to frontend folder:
 
-Find "Node.js JavaScript Runtime"
+   ```bash
+   cd frontend
+   ```
 
-Check the "Private" box
+2. Install dependencies:
 
-Run the App
+   ```bash
+   npm install
+   ```
 
-bash
-Copy code
-npx expo start -c
-The -c flag clears cache (recommended for first run)
+3. Allow network access on Windows Firewall:
 
-Scan the displayed QR code using the Expo Go app on your phone
+   * Open **Windows Defender Firewall → Allow an app**
+   * Find **Node.js JavaScript Runtime**
+   * Ensure **Private** is checked
 
-🧭 API Endpoints
-Method	Endpoint	Description
-GET	/menu	Returns all menu items
-GET	/menu/random	Returns a random item (where inStock: true)
-GET	/menu/:id	Returns a specific menu item by _id
+4. Run the app:
 
-📂 Project Structure
-pgsql
-Copy code
+   ```bash
+   npx expo start -c
+   ```
+
+   * Clear cache with `-c` (recommended)
+   * Scan QR code using **Expo Go** app
+
+---
+
+## 🔍 API Endpoints
+
+| Method | Endpoint       | Description                  |
+| ------ | -------------- | ---------------------------- |
+| GET    | `/menu`        | Get all menu items           |
+| GET    | `/menu/random` | Get one random in-stock item |
+| GET    | `/menu/:id`    | Get menu item by ID          |
+
+---
+
+## 🗂️ Folder Structure
+
+```
 skybrews-coffee-app/
 │
 ├── backend/
@@ -173,19 +195,21 @@ skybrews-coffee-app/
 │   └── package.json
 │
 └── README.md
-💡 Notes
-Ensure both frontend and backend run simultaneously
+```
 
-Both must be connected to the same Wi-Fi network for local testing
+---
 
-You can host the backend online (Render, Vercel, etc.) and update apiConfig.ts with the deployed API URL
+## 👨‍💻 Author
 
-🧑‍💻 Author
-M. Raheel Nawaz
-📧 raheel.nawaz768@gmail.com
-🔗 https://github.com/Raheel2k4
+**M. Raheel Nawaz**
+[GitHub Profile](#) | [Email](#)
 
-🪪 License
-This project is licensed under the MIT License — feel free to use and modify.
+---
 
-⭐ If you like this project, consider giving it a star on GitHub!
+## 🗃️ License
+
+Licensed under the **MIT License** — you’re free to use and modify.
+
+---
+
+⭐ *If you like this project, please give it a star on GitHub!*
