@@ -4,11 +4,6 @@ This is a complete full-stack mobile application for a coffee shop, built with R
 
 The app allows users to view the full coffee menu, fetched from a live MongoDB database, and request a random "surprise" item. This project was built to fulfill the requirements of the CS375 Mobile Application Development Mid-Term Examination.
 
-## 📱 App Demo
-
-A full video recording demonstrating the app's features and functionality is included in the root of this repository.
-
-[![Skybrews App Demo](cover.png)](demo.mp4)
 
 <p align="center">
   </p>
