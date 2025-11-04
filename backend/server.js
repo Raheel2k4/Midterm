@@ -69,3 +69,29 @@ app.get('/menu/random', async (req, res) => {
     res.status(500).json({ message: "Error fetching random item", error: error.message });
   }
 });
+
+/**
+ * 3. GET /menu/:id
+ * Get a single menu item by its ID
+ */
+app.get('/menu/:id', async (req, res) => {
+  try {
+    const { id } = req.params; // Get the ID from the URL
+    
+    // Check if it's a valid MongoDB ID
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid item ID" });
+    }
+
+    const item = await MenuItem.findById(id);
+
+    if (!item) {
+      return res.status(404).json({ message: "Item not found" });
+    }
+    
+    res.json(item); // Return the single item
+  } catch (error) {
+    // Graceful error handling
+    res.status(500).json({ message: "Error fetching item", error: error.message });
+  }
+});

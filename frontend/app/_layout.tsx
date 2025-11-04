@@ -6,32 +6,61 @@ export default function RootLayout() {
   return (
     <>
       <StatusBar style="dark" />
+      
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: Colors.card },
           headerTintColor: Colors.text,
-          headerShadowVisible: false,
+          headerShadowVisible: false, 
           contentStyle: { backgroundColor: Colors.background },
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        
         <Stack.Screen
           name="menu"
           options={{
-            presentation: 'fullScreenModal', // Better for a long list
-            headerShown: false, // <-- CHANGED to hide the header
+            presentation: 'fullScreenModal',
+            headerShown: false,
           }}
         />
-        {/* ADD THIS: This is your new elegant "surprise me" modal */}
+        
         <Stack.Screen
           name="modal"
           options={{
-            presentation: 'transparentModal', // Fades in over the top
+            presentation: 'transparentModal',
             headerShown: false,
             animation: 'fade',
           }}
         />
+        
+        <Stack.Screen 
+          name="item/[id]" 
+          options={{ 
+            headerShown: false, 
+            presentation: 'fullScreenModal',
+          }} 
+        />
+        
+        {/* --- ADD THESE TWO NEW SCREENS --- */}
+        <Stack.Screen
+          name="checkout"
+          options={{
+            presentation: 'fullScreenModal',
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="orderSuccess"
+          options={{
+            presentation: 'transparentModal',
+            headerShown: false,
+            animation: 'fade',
+          }}
+        />
+
       </Stack>
     </>
   );
 }
+

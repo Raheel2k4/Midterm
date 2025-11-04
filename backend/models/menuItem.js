@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// This schema matches the requirements from Task 1
+// This schema matches the requirements from Task 1, plus new fields
 const menuItemSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -16,48 +16,22 @@ const menuItemSchema = new mongoose.Schema({
   },
   inStock: {
     type: Boolean,
-    default: true, // Default is true as required
+    default: true,
   },
-});
-
-[
-  {
-    "name": "Espresso",
-    "category": "Hot Drinks",
-    "price": 800.50,
-    "inStock": true
+  // --- ADDED THESE NEW FIELDS ---
+  description: {
+    type: String,
+    required: false, // Optional
+    default: 'A delightful treat from Skybrews Coffee.'
   },
-  {
-    "name": "Cappuccino",
-    "category": "Hot Drinks",
-    "price": 350.50,
-    "inStock": true
-  },
-  {
-    "name": "Iced Coffee",
-    "category": "Cold Drinks",
-    "price": 800.00,
-    "inStock": true
-  },
-  {
-    "name": "Latte",
-    "category": "Hot Drinks",
-    "price": 900.00,
-    "inStock": true
-  },
-  {
-    "name": "Croissant",
-    "category": "Pastries",
-    "price": 700.50,
-    "inStock": true
-  },
-  {
-    "name": "Muffin",
-    "category": "Pastries",
-    "price": 400.00,
-    "inStock": false
+  imageUrl: {
+    type: String,
+    required: false, // Optional
+    // Using a safe placeholder
+    default: 'https://placehold.co/600x400/F2F2F7/3C3C43?text=Skybrews'
   }
-]
+  // ------------------------------
+});
 
 // The third argument 'menu_items' forces this exact collection name
 module.exports = mongoose.model('MenuItem', menuItemSchema, 'menu_items');
