@@ -182,8 +182,8 @@ You can host the backend online (Render, Vercel, etc.) and update apiConfig.ts w
 
 🧑‍💻 Author
 M. Raheel Nawaz
-📧 [Your Email Here]
-🔗 [GitHub Profile Link]
+📧 raheel.nawaz768@gmail.com
+🔗 https://github.com/Raheel2k4
 
 🪪 License
 This project is licensed under the MIT License — feel free to use and modify.
