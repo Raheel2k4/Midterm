@@ -5,26 +5,30 @@ import { StatusBar } from 'expo-status-bar';
 export default function RootLayout() {
   return (
     <>
-      {/* Ensures time/battery are light text */}
-      <StatusBar style="light" /> 
-      
+      <StatusBar style="dark" />
       <Stack
         screenOptions={{
-          headerStyle: {
-            backgroundColor: Colors.card, // Dark header background
-          },
-          headerTintColor: Colors.text, // White title/back button
-          contentStyle: {
-            backgroundColor: Colors.background, // Dark app background
-          },
+          headerStyle: { backgroundColor: Colors.card },
+          headerTintColor: Colors.text,
+          headerShadowVisible: false,
+          contentStyle: { backgroundColor: Colors.background },
         }}
       >
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen
           name="menu"
           options={{
-            title: 'Full Menu',
-            presentation: 'modal', // Nice slide-up effect
+            presentation: 'fullScreenModal', // Better for a long list
+            headerShown: false, // <-- CHANGED to hide the header
+          }}
+        />
+        {/* ADD THIS: This is your new elegant "surprise me" modal */}
+        <Stack.Screen
+          name="modal"
+          options={{
+            presentation: 'transparentModal', // Fades in over the top
+            headerShown: false,
+            animation: 'fade',
           }}
         />
       </Stack>

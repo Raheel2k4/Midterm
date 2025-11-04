@@ -5,20 +5,23 @@ import {
   Alert,
   ActivityIndicator,
   Text,
-  Pressable, // Import Pressable!
+  Pressable,
 } from 'react-native';
 import { useRouter } from 'expo-router';
 import API_URL from '../../apiConfig';
-import { Colors } from '../../constants/colors'; // Import our colors
+import { Colors } from '../../constants/colors';
+import { FontAwesome } from '@expo/vector-icons'; // We need this for the icon
 
 export default function HomeScreen() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  // 1. Function for "Full Menu" button
   const showFullMenu = () => {
     router.push('/menu');
   };
 
+  // 2. Function for "Surprise Me" button
   const surpriseMe = async () => {
     setLoading(true);
     try {
@@ -42,10 +45,24 @@ export default function HomeScreen() {
     }
   };
 
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Welcome to the</Text>
-      <Text style={styles.brand}>Daily Grind</Text>
+      
+      {/* === NEW "WELCOME TO SKYBREWS" HEADER === */}
+      <View style={styles.headerContainer}>
+        <Text style={styles.welcomeText}>Welcome to</Text>
+        <View style={styles.brandRow}>
+          <FontAwesome 
+            name="coffee" // The coffee icon
+            size={36}      // Sized to match the text
+            color={Colors.text} // White, not black (black is invisible on dark BG)
+            style={styles.headerIcon} 
+          />
+          <Text style={styles.brandName}>Skybrews</Text>
+        </View>
+      </View>
+      {/* ======================================= */}
 
       {loading && <ActivityIndicator size="large" color={Colors.primary} style={styles.loader} />}
 
@@ -84,56 +101,78 @@ export default function HomeScreen() {
   );
 }
 
+// === ALL MATCHING STYLES ===
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: Colors.background, // Use dark background
+    backgroundColor: 'transparent',
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '300', // Lighter font
+  // Styles for the brand header
+  headerContainer: {
+    alignItems: 'center',
+    marginBottom: 60,
+    // Add a subtle shadow for effect
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  welcomeText: {
+    fontSize: 28, // Large welcome text
+    fontWeight: '300',
     color: Colors.textSecondary,
+    marginBottom: 10,
   },
-  brand: {
-    fontSize: 40,
+  brandRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerIcon: {
+    marginRight: 15, // Space between icon and name
+  },
+  brandName: {
+    fontSize: 44, // Big and visible
     fontWeight: 'bold',
     color: Colors.text,
-    marginBottom: 60,
   },
+  // REMOVED 'tagline' style as it's no longer used
+  // Styles for the buttons
   buttonContainer: {
     width: '90%',
   },
   button: {
     paddingVertical: 16,
     paddingHorizontal: 32,
-    borderRadius: 30, // Rounded pill shape
+    borderRadius: 30,
     alignItems: 'center',
     marginVertical: 10,
-    borderWidth: 1,
+    borderWidth: 2,
   },
   buttonPrimary: {
-    backgroundColor: Colors.primary, // Solid color
+    backgroundColor: Colors.primary,
     borderColor: Colors.primary,
   },
   buttonSecondary: {
-    backgroundColor: 'transparent', // "Ghost" button
-    borderColor: Colors.primary, // Accent border
+    backgroundColor: 'transparent',
+    borderColor: Colors.primary,
   },
   buttonPressed: {
-    opacity: 0.7, // Feedback on press
+    opacity: 0.7,
   },
   buttonText: {
     fontSize: 16,
     fontWeight: '600',
   },
   buttonTextPrimary: {
-    color: '#FFFFFF', // White text on solid button
+    color: '#FFFFFF',
   },
   buttonTextSecondary: {
-    color: Colors.primary, // Accent text on ghost button
+    color: Colors.primary,
   },
   loader: {
     position: 'absolute',

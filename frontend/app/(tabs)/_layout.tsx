@@ -1,22 +1,36 @@
 import { Tabs } from 'expo-router';
+import { Colors } from '../../constants/colors';
+import { FontAwesome } from '@expo/vector-icons';
+
+// ... (TabBarIcon function is the same) ...
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>['name'];
+  color: string;
+}) {
+  return <FontAwesome size={26} style={{ marginBottom: -3 }} {...props} />;
+}
 
 export default function TabLayout() {
   return (
-    <Tabs>
-      {/* This screen points to your app/(tabs)/index.tsx file.
-        It's your "Home" screen with the two buttons.
-      */}
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors.tint,
+        tabBarInactiveTintColor: Colors.tabIconDefault,
+        tabBarStyle: {
+          backgroundColor: Colors.card,
+          borderTopColor: Colors.border,
+        },
+        // We no longer need header styles because they're hidden
+      }}
+    >
       <Tabs.Screen
         name="index"
-        options={{ title: 'Coffee Shop' }} 
+        options={{
+          title: 'Home', // <-- CHANGED from 'Skybrews'
+          headerShown: false, // <-- ADDED to hide the header
+          tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+        }}
       />
-      
-      {/* If you had other tabs, you'd add them here.
-      <Tabs.Screen
-        name="explore" // would point to app/(tabs)/explore.tsx
-        options={{ title: 'Explore' }}
-      /> 
-      */}
     </Tabs>
   );
 }
