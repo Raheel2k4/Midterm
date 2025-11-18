@@ -6,32 +6,29 @@ import {
   StyleSheet,
   ActivityIndicator,
   Alert,
-  Pressable, // We need this for the new icon
+  Pressable,
+  Image, // 1. Import Image
 } from 'react-native';
 import { useRouter } from 'expo-router';
+// --- CORRECTED IMPORT PATHS ---
 import API_URL from '../apiConfig';
 import { Colors } from '../constants/colors';
-import { useCartStore } from '../store/cartStore'; // <-- 1. Import the brain
-import { FontAwesome } from '@expo/vector-icons'; // <-- 2. Import icons
-
-interface MenuItem {
-  _id: string;
-  name: string;
-  category: string;
-  price: number;
-  inStock: boolean;
-}
+import { useCartStore, MenuItem, CartItem } from '../store/cartStore'; 
+import { FontAwesome } from '@expo/vector-icons'; 
+import Animated, { FadeInUp } from 'react-native-reanimated';
+// ------------------------------
 
 export default function MenuScreen() {
   const router = useRouter();
   const [menu, setMenu] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // <-- 3. Get cart items to show the count
-  const items = useCartStore((state) => state.items);
-  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  // --- FIX for implicit 'any' types ---
+  const items = useCartStore((state: { items: CartItem[] }) => state.items);
+  const totalItems = items.reduce((sum: number, item: { quantity: number }) => sum + item.quantity, 0);
+  // ------------------------------------
 
-  // ... (useEffect hook is identical) ...
+  // --- THIS IS THE CORRECTED CODE ---
   useEffect(() => {
     const fetchMenu = async () => {
       try {
@@ -44,38 +41,48 @@ export default function MenuScreen() {
       } catch (error) {
         Alert.alert("Error", "Could not fetch the menu.");
       } finally {
-        setLoading(false);
+        setLoading(false); // This will now be called
       }
     };
     fetchMenu();
-  }, []);
+  }, []); // Empty array means this runs once on mount
+  // ---------------------------------
 
-  // ... (renderItem function is identical) ...
-  const renderItem = ({ item }: { item: MenuItem }) => (
-    <Pressable onPress={() => router.push(`/item/${item._id}`)}>
-      <View style={styles.itemContainer}>
-        <View style={styles.itemDetails}>
-          <Text style={styles.itemName}>{item.name}</Text>
-          <Text style={styles.itemCategory}>{item.category}</Text>
+  const renderItem = ({ item, index }: { item: MenuItem, index: number }) => (
+    <Animated.View entering={FadeInUp.delay(index * 50).duration(300)}>
+      <Pressable onPress={() => router.push(`/item/${item._id}`)}>
+        <View style={styles.itemContainer}>
+          <View style={styles.itemDetails}>
+            <Text style={styles.itemName}>{item.name}</Text>
+            <Text style={styles.itemCategory}>{item.category}</Text>
+            <Text style={styles.itemDescription} numberOfLines={2}>
+              {item.description}
+            </Text>
+          </View>
+          <View style={styles.itemPriceInfo}>
+            {/* 2. Add the Image component here */}
+            <Image source={{ uri: item.image }} style={styles.itemImage} />
+            <Text style={styles.priceText}>Rs. {item.price.toFixed(2)}</Text>
+            {!item.inStock && (
+              <Text style={styles.outOfStock}>Out of Stock</Text>
+            )}
+          </View>
         </View>
-        <View style={styles.itemPriceInfo}>
-          <Text style={styles.priceText}>Rs. {item.price.toFixed(2)}</Text>
-          {!item.inStock && (
-            <Text style={styles.outOfStock}>Out of Stock</Text>
-          )}
-        </View>
-      </View>
-    </Pressable>
+      </Pressable>
+    </Animated.View>
   );
 
   if (loading) {
-    // ... (loader is identical) ...
+    return (
+      <View style={styles.loaderContainer}>
+        <ActivityIndicator size="large" color={Colors.primary} />
+      </View>
+    );
   }
 
   return (
     <View style={styles.container}>
       
-      {/* === 4. THIS IS THE UPDATED HEADER === */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Full Menu</Text>
         <Pressable 
@@ -90,7 +97,6 @@ export default function MenuScreen() {
           )}
         </Pressable>
       </View>
-      {/* ================================ */}
 
       <FlatList
         data={menu}
@@ -106,29 +112,28 @@ export default function MenuScreen() {
   );
 }
 
-// === 5. THESE STYLES ARE UPDATED ===
+// === LIGHT THEME + NEW STYLES ===
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
+    backgroundColor: Colors.background, // Light grey BG
     paddingTop: 60,
   },
   header: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 20, 
     paddingBottom: 16,
-    flexDirection: 'row', // Make it a row
-    justifyContent: 'space-between', // Push items apart
-    alignItems: 'center', // Vertically align title and icon
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   headerTitle: {
     fontSize: 34,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.text, // Black
   },
   cartIconContainer: {
-    padding: 8, // Makes it easier to tap
+    padding: 8,
   },
-  // New styles for the badge
   badgeContainer: {
     position: 'absolute',
     top: 0,
@@ -151,27 +156,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: Colors.background,
   },
-  // ... (all other styles are identical) ...
   itemContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     padding: 20,
-    backgroundColor: Colors.card,
+    backgroundColor: Colors.card, // White card
     borderRadius: 12,
   },
   itemDetails: {
     flex: 1,
+    paddingRight: 10, // Ensure space for price
   },
   itemName: {
     fontSize: 18,
     fontWeight: '600',
-    color: Colors.primary,
+    color: Colors.primary, // Sky Blue
   },
   itemCategory: {
     fontSize: 14,
     color: Colors.textSecondary,
     marginTop: 4,
+  },
+  itemDescription: {
+    fontSize: 14,
+    color: Colors.textSecondary,
+    marginTop: 8,
+  },
+  // 3. Add the new style for the small image
+  itemImage: {
+    width: 60,
+    height: 60,
+    borderRadius: 8,
+    backgroundColor: Colors.border,
+    marginBottom: 8,
   },
   itemPriceInfo: {
     alignItems: 'flex-end',
@@ -179,7 +197,7 @@ const styles = StyleSheet.create({
   priceText: {
     fontSize: 16,
     fontWeight: 'bold',
-    color: Colors.text,
+    color: Colors.text, // Black
   },
   outOfStock: {
     fontSize: 12,

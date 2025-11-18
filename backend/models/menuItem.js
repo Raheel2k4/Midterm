@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-// This schema matches the requirements from Task 1, plus new fields
+// This schema now matches your seed.js file
 const menuItemSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -18,19 +18,20 @@ const menuItemSchema = new mongoose.Schema({
     type: Boolean,
     default: true,
   },
-  // --- ADDED THESE NEW FIELDS ---
+  // --- UPDATED THIS FIELD ---
+  // Changed from 'imageUrl' to 'image'
+  image: {
+    type: String,
+    required: false,
+    default: 'https://placehold.co/600x400/F2F2F7/3C3C43?text=Skybrews'
+  },
+  // --- ADD THIS FIELD ---
   description: {
     type: String,
-    required: false, // Optional
+    required: false,
     default: 'A delightful treat from Skybrews Coffee.'
-  },
-  imageUrl: {
-    type: String,
-    required: false, // Optional
-    // Using a safe placeholder
-    default: 'https://placehold.co/600x400/F2F2F7/3C3C43?text=Skybrews'
   }
-  // ------------------------------
+  // -------------------------
 });
 
 // The third argument 'menu_items' forces this exact collection name
